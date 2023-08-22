@@ -27,7 +27,7 @@ struct fmt
  */
 typedef struct fmt fmt_t;
 int _printf(const char *format, ...);
-
+void print_string_special(const char *str);
 
 
 #endif /* MAIN_H */
