@@ -1,16 +1,35 @@
-#include <stdio.h>
+#include "main.h"
 
 /**
- * main - the main function
- * Return: 0 when successful
+ * get_width - Calculates the width for printing
+ * @format: Formatted string in which to print the arguments.
+ * @i: List of arguments to be printed.
+ * @list: list of arguments.
+ * Return: width.
  */
-
-int main(void)
+int get_width(const char *format, int *i, va_list list)
 {
-	int num1 = 84;
-	int num2 = 96;
+	int curr_i;
+	int width = 0;
 
-	printf("num1: %15d\n, num2 %15d\n", num1, num2);
+	for (curr_i = *i + 1; format[curr_i] != '\0'; curr_i++)
+	{
+		if (is_digit(format[curr_i]))
+		{
+			width *= 10;
+			width += format[curr_i] - '0';
+		}
+		else if (format[curr_i] == '*')
+		{
+			curr_i++;
+			width = va_arg(list, int);
+			break;
+		}
+		else
+			break;
+	}
 
-	return (0);
+	*i = curr_i - 1;
+
+	return (width);
 }
